@@ -1,0 +1,9 @@
+openai==1.2.0
+fastapi
+uvicorn
+sqlalchemy
+asyncmy
+pydantic
+pymysql
+python-dotenv
+cryptography
