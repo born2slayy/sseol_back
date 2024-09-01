@@ -84,18 +84,36 @@ def search_brands(
     query = db.query(models.Brand) 
 
     results = query.order_by(func.random()).limit(5).all()
+    brands = []
+    for brand in results:
+        productImgs = []
+        for product in brand.products:
+            productImgs.extend(product.productImgs)
+            print('hello')
+        productImgs = [img.strip('"') for img in productImgs]
 
-    brands = [
-        schemas.BrandResponse(
+        first_product_img = productImgs[0] if productImgs else None
+        
+        brands.append(schemas.BrandResponse(
             brandName=brand.brandName,
             brandLogo=brand.brandLogo,
             location=brand.location,
             revenue=brand.revenueRange,
             priceRange=brand.priceRange,
-            category=brand.mainCategory
-        )
-        for brand in results
-    ]
+            category=brand.mainCategory,
+            firstProductImg=first_product_img
+        ))
+    # brands = [
+    #     schemas.BrandResponse(
+    #         brandName=brand.brandName,
+    #         brandLogo=brand.brandLogo,
+    #         location=brand.location,
+    #         revenue=brand.revenueRange,
+    #         priceRange=brand.priceRange,
+    #         category=brand.mainCategory
+    #     )
+    #     for brand in results
+    # ]
 
     return schemas.SearchResponse(brands=brands, solarOutput=solar_output)  
 

@@ -72,6 +72,7 @@ class BrandResponse(BaseModel):
     revenue: str
     priceRange: str
     category: str
+    firstProductImg: str
 
 class SearchResponse(BaseModel):
     brands: List[BrandResponse]

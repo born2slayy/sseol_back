@@ -17,7 +17,7 @@ class Brand(Base):
     mainCategory = Column(String(255))
     priceRange = Column(String(255))
 
-    products = relationship("Product", back_populates="brand", uselist=False)
+    products = relationship("Product", back_populates="brand", uselist=True)
 
 
 class Product(Base):
